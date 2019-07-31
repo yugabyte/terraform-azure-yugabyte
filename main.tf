@@ -139,6 +139,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
         connection {
             type = "ssh"
             user = "${var.ssh_user}"
+            host = "${element(azurerm_public_ip.YugaByte_Public_IP.*.ip_address, count.index)}"
             private_key = "${file(var.ssh_private_key)}"
         }
     }
@@ -149,6 +150,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
         connection {
             type = "ssh"
             user = "${var.ssh_user}"
+            host = "${element(azurerm_public_ip.YugaByte_Public_IP.*.ip_address, count.index)}"
             private_key = "${file(var.ssh_private_key)}"
         }
     }
@@ -158,6 +160,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
         connection {
             type = "ssh"
             user = "${var.ssh_user}"
+            host = "${element(azurerm_public_ip.YugaByte_Public_IP.*.ip_address, count.index)}"
             private_key = "${file(var.ssh_private_key)}"
         }
     }
@@ -167,6 +170,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
         connection {
             type = "ssh"
             user = "${var.ssh_user}"
+            host = "${element(azurerm_public_ip.YugaByte_Public_IP.*.ip_address, count.index)}"
             private_key = "${file(var.ssh_private_key)}"
         }
     }
@@ -181,6 +185,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
         connection {
             type = "ssh"
             user = "${var.ssh_user}"
+            host = "${element(azurerm_public_ip.YugaByte_Public_IP.*.ip_address, count.index)}"
             private_key = "${file(var.ssh_private_key)}"
         }
     }
