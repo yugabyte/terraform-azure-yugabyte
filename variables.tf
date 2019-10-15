@@ -54,7 +54,7 @@ variable "yb_version" {
 
 variable "region_name" {
   description = "Region name for Azure"
-  default     = "westus"
+  default     = "eastus"
   type        = "string"
 }
 variable "disk_size" {
