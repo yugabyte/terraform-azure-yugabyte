@@ -180,7 +180,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
             "chmod +x /home/${var.ssh_user}/create_universe.sh",
             "chmod +x /home/${var.ssh_user}/start_tserver.sh",
             "chmod +x /home/${var.ssh_user}/start_master.sh",
-            "/home/${var.ssh_user}/install_software.sh '${var.yb_version}' '${var.yb_download_url}'"
+            "/home/${var.ssh_user}/install_software.sh '${var.yb_version}' "
         ]
         connection {
             type = "ssh"
