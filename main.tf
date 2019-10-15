@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "YugaByte-Group" {
     }   
 }
 # Create virtual network
-resource "azurerm_virtual_network" "YugaByte-Netowrk" {
+resource "azurerm_virtual_network" "YugaByte-Network" {
     name                = "${var.prefix}${var.cluster_name}-VPC"
     address_space       = ["10.0.0.0/16"]
     location            = "${var.region_name}"
@@ -23,7 +23,7 @@ resource "azurerm_subnet" "YugaByte-SubNet" {
     count                = "${var.subnet_count}"
     name                 = "${var.prefix}${var.cluster_name}-Subnet-${format("%d", count.index + 1)}"
     resource_group_name  = "${azurerm_resource_group.YugaByte-Group.name}"
-    virtual_network_name = "${azurerm_virtual_network.YugaByte-Netowrk.name}"
+    virtual_network_name = "${azurerm_virtual_network.YugaByte-Network.name}"
     address_prefix       = "10.0.${count.index+1}.0/24"
 }
 
@@ -180,7 +180,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
             "chmod +x /home/${var.ssh_user}/create_universe.sh",
             "chmod +x /home/${var.ssh_user}/start_tserver.sh",
             "chmod +x /home/${var.ssh_user}/start_master.sh",
-            "/home/${var.ssh_user}/install_software.sh '${var.yb_edition}' '${var.yb_version}' '${var.yb_download_url}'"
+            "/home/${var.ssh_user}/install_software.sh '${var.yb_version}' '${var.yb_download_url}'"
         ]
         connection {
             type = "ssh"
