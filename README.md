@@ -1,5 +1,5 @@
 # terraform-azure-yugabyte
-A Terraform module to deploy and run YugaByte on Microsoft Azure Cloud.
+A Terraform module to deploy and run YugabyteDB on Microsoft Azure Cloud.
 
 ## Config
 * First create a terraform file with provider details 
