@@ -1,6 +1,11 @@
-output "ui" {
+output "master-ui" {
   sensitive = false
   value     = "http://${azurerm_public_ip.YugaByte_Public_IP[0].ip_address}:7000"
+}
+
+output "tserver-ui" {
+  sensitive = false
+  value     = "http://${azurerm_public_ip.YugaByte_Public_IP[0].ip_address}:9000"
 }
 
 output "ssh_user" {
@@ -31,4 +36,8 @@ output "YCQL" {
 output "YEDIS" {
   sensitive = false
   value     = "redis-cli -h ${azurerm_public_ip.YugaByte_Public_IP[0].ip_address} -p 6379"
+}
+
+output "hosts" {
+  value = "${azurerm_public_ip.YugaByte_Public_IP.*.ip_address}"
 }

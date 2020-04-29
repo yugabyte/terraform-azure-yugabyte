@@ -108,6 +108,7 @@ resource "azurerm_network_interface_security_group_association" "YugaByte-NIC-SG
 
 # Create virtual machine
 resource "azurerm_virtual_machine" "YugaByte-Node" {
+  depends_on            = [azurerm_network_interface_security_group_association.YugaByte-NIC-SG-Association]
   count                 = var.node_count
   name                  = "${var.prefix}${var.cluster_name}-node-${format("%d", count.index + 1)}"
   location              = var.region_name
@@ -210,6 +211,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
       "chmod +x /home/${var.ssh_user}/create_universe.sh",
       "chmod +x /home/${var.ssh_user}/start_tserver.sh",
       "chmod +x /home/${var.ssh_user}/start_master.sh",
+      "sudo yum install -y wget",
       "/home/${var.ssh_user}/install_software.sh '${var.yb_version}'",
     ]
     connection {

@@ -136,3 +136,30 @@ In order to migrate to the latest revision of this module which uses terraform `
   $ terraform apply
   ```
 
+## Test 
+
+### Environment setup
+ 
+ * To run the terratest manually, install terraform and configure it for azure by following steps [here](https://docs.microsoft.com/en-gb/azure/virtual-machines/linux/terraform-install-configure)
+
+ * Review environment variables from [configuration section](Configuration)
+
+ * Set `AZURE_REGION` environment variable as well. This region will be used to create all Azure resources
+
+ * Clone [this](https://github.com/yugabyte/terraform-azure-yugabyte) repository
+
+ * Install [Golang](https://golang.org/) and check out this repo into your `GOPATH`
+
+
+#### Run test
+
+* Change your working directory to the `test` folder in your checked out directory.
+
+* Then simply run it in the local shell:
+
+```sh
+$ go test -v -timeout 40m  yugabyte_test.go
+```
+* Note that go has a default test timeout of 10 minutes. With infrastructure testing, your tests will surpass the 10 minutes very easily. To extend the timeout, you can pass in the -timeout option, which takes a go duration string (e.g 10m for 10 minutes or 1h for 1 hour). In the above command, we use the -timeout option to override to a 40 minute timeout.
+* When you hit the timeout, Go automatically exits the test, skipping all cleanup routines. This is problematic for infrastructure testing because it will skip your deferred infrastructure cleanup steps (i.e terraform destroy), leaving behind the infrastructure that was spun up. So it is important to use a longer timeout every time you run the tests. If time out happens before destroying all resources, manual cleanup is required.
+
