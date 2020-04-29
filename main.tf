@@ -115,6 +115,7 @@ resource "azurerm_virtual_machine" "YugaByte-Node" {
   network_interface_ids = [element(azurerm_network_interface.YugaByte-NIC.*.id, count.index)]
   vm_size               = var.vm-size
   zones                 = [element(var.zone_list, count.index)]
+  depends_on            = [azurerm_network_interface_security_group_association.YugaByte-NIC-SG-Association]
 
   storage_os_disk {
     name              = "${var.prefix}${var.cluster_name}-disk-n${format("%d", count.index + 1)}"
