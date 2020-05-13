@@ -76,7 +76,7 @@ resource "azurerm_network_security_group" "YugaByte-SG" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "YugaByte-SG-Association" {
-  count                     = var.node_count
+  count                     = var.subnet_count
   subnet_id                 = element(azurerm_subnet.YugaByte-SubNet.*.id, count.index)
   network_security_group_id = azurerm_network_security_group.YugaByte-SG.id
 }
