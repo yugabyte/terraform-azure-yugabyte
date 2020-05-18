@@ -27,9 +27,10 @@ A Terraform module to deploy and run YugabyteDB on Microsoft Azure Cloud.
   it
   ```hcl
   module "yugabyte-db-cluster" {
+    # The source module used for creating clusters on Azure.
 	source = "github.com/yugabyte/terraform-azure-yugabyte.git"
 
-	# The name of the cluster to be created.
+    # The name of the cluster to be created, change as per need.
 	cluster_name = "test-yugabyte"
 
 	# key pair.
@@ -50,16 +51,14 @@ A Terraform module to deploy and run YugabyteDB on Microsoft Azure Cloud.
 	node_count = "3"
   }
 
-  output "ui" {
-	value = "${module.yugabyte-db-cluster.ui}"
+  output "outputs" {
+	value = module.yugabyte-db-cluster
   }
-
-  # You can add other outputs from output.tf here
   ```
 
 ## Usage
 
-Init terraform first if you have not already done so.
+Initialize terraform first, if you have not already done so.
 
 ```
 $ terraform init
@@ -77,7 +76,7 @@ Now run the following to create the instances and bring up the cluster.
 $ terraform apply
 ```
 
-Once the cluster is created, you can go to the URL `http://<node ip or dns name>:7000` to view the UI. You can find the node's public IP by running the following:
+Once the cluster is created, you can go to the URL `http://<node ip or dns name>:7000` to view the UI. You can find the node's public IP address by running the following:
 
 ```
 $ terraform state show module.yugabyte-db-cluster.azurerm_public_ip.YugaByte_Public_IP[0]
