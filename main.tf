@@ -239,6 +239,11 @@ locals {
 }
 
 resource "null_resource" "create_yugabyte_universe" {
+  # Define the trigger condition to run the provisioner block
+  triggers = {
+    cluster_instance_ids = "${join(",", azurerm_virtual_machine.YugaByte-Node.*.id)}"
+  }
+
   depends_on = [azurerm_virtual_machine.YugaByte-Node]
 
   provisioner "local-exec" {
